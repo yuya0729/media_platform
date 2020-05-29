@@ -1,0 +1,16 @@
+<% extend('./base') %>
+
+<p>created by <span class="font-weight-bold"><%= user %></span> </p>
+<p><%= note.id %> </p>
+
+<form action="/notes/<%= note.id %>" method="POST">
+	<div>
+		<input type="text" name="title" value="<%= note.title %>">
+	</div>
+	<div>
+		<textarea name="content" rows="10" ><%= note.content %></textarea>
+	</div>
+	<div>
+		<button type="submit" class="btn btn-success">Edit</button>
+	</div>
+</form>

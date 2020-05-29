@@ -1,0 +1,12 @@
+<% extend('./base') %>
+
+<p>created by <span class="font-weight-bold"><%= user %></span> </p>
+<h3><%= note.title %> </h3>
+<p><%= note.content %> </p>
+<% if(user === note.createdBy) { %>
+	<form method="POST" action="/notes/delete/<%= note.id %>">
+		<input type="hidden" name="id" value="<%= note.id %>">
+		<button type="submit" class="btn btn-danger">Delete</button>
+	</form>
+	<button type="button" class="btn btn-success" onclick="location.href='/notes/<%= note.id %>/edit'">Edit</button>
+<% } %>
