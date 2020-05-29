@@ -63,7 +63,7 @@ router.post('/notes/:id', (req, res, next) => {
 			createdBy: req.user
 		});
 	});
-	res.redirect(`/notes/${id}`);
+	return res.redirect(`/notes/${id}`);
 });
 
 // Delete
