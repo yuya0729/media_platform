@@ -21,6 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
+app.use('/register', indexRouter);
+app.use('/login', indexRouter);
 app.use('/add', indexRouter);
 app.use('/posts/:id([0-9]+)', indexRouter);
 app.use('/posts/:id/edit', indexRouter);
