@@ -11,6 +11,6 @@
   <button class="mt-3 btn btn-success">Register</button>
 </form>
 
-<% if(typeof data !== 'undefined') { %>
+<% if(data) { %>
   <div class="mt-3 alert alert-danger text-black" role="alert"><%= data %> is already exist</div>
 <% } %>
