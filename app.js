@@ -3,8 +3,13 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
 
 const indexRouter = require('./routes/index');
+const registerRouter = require('./routes/register');
+const loginRouter = require('./routes/login');
+const noteRouter = require('./routes/note');
+const logoutRouter = require('./routes/logout');
 
 const app = express();
 
@@ -18,12 +23,29 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 
-app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-app.use('/add', indexRouter);
-app.use('/posts/:id([0-9]+)', indexRouter);
-app.use('/posts/:id/edit', indexRouter);
+const setUser = (req, res, next) => {
+  if(req.session.userName) {
+    console.log('ok');
+    res.locals.user = req.session.userName;
+    console.log(res.locals.user);
+  } else {
+    console.log('not good');
+  }
+  next();
+};
+
+app.use('/login', loginRouter);
+app.use('/', setUser, indexRouter);
+app.use('/register', registerRouter);
+app.use('/notes', noteRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
