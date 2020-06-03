@@ -10,6 +10,7 @@ const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login');
 const noteRouter = require('./routes/note');
 const logoutRouter = require('./routes/logout');
+const userRouter = require('./routes/user');
 
 const app = express();
 
@@ -32,9 +33,8 @@ app.use(session({
 
 const setUser = (req, res, next) => {
   if(req.session.userName) {
-    console.log('ok');
     res.locals.user = req.session.userName;
-    console.log(res.locals.user);
+    console.log('good');
   } else {
     console.log('not good');
   }
@@ -46,6 +46,7 @@ app.use('/', setUser, indexRouter);
 app.use('/register', registerRouter);
 app.use('/notes', noteRouter);
 app.use('/logout', logoutRouter);
+app.use('/:user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
