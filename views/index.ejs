@@ -1,17 +1,21 @@
 <% extend('./base') %>
 
 <h1>Media pratform</h1>
-<p>username: @<%= user %></p>
+<p>username: @<%= userName %></p>
 <button type="button" class="btn btn-primary" onclick="location.href='/notes/add/new'">Add</button>
+<button type="button" class="btn btn-warning" onclick="location.href='/login'">Login</button>
+<button type="button" class="btn btn-secondary" onclick="location.href='/logout'">Logout</button>
 
 <% notes.forEach(note => { %>
   <a href=""></a>
   <h3 class="border-top my-3 pt-3"><%= note.title %> </h3>
   <p>created by: @<%= note.createdBy %> </p>
   <button type="button" class="btn btn-info" onclick="location.href='/notes/<%= note.id %>'">More</button>
-  <form method="POST" action="/notes/delete/<%= note.id %>">
-    <input type="hidden" name="id" value="<%= note.id %>">
-    <button type="submit" class="btn btn-danger">Delete</button>
-  </form>
-  <button type="button" class="btn btn-success" onclick="location.href='/notes/<%= note.id %>/edit'">Edit</button>
+  <% if(userName === note.createdBy) { %>
+    <form method="POST" action="/notes/delete/<%= note.id %>">
+      <input type="hidden" name="id" value="<%= note.id %>">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    <button type="button" class="btn btn-success" onclick="location.href='/notes/<%= note.id %>/edit'">Edit</button>
+  <% } %>
 <% }); %>

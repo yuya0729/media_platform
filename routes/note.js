@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Note = require('../models/note');
-const User = require('../models/user');
 
 // get add page
 router.get('/add/new', (req, res, next) => {
@@ -14,7 +13,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
   Note.findByPk(id).then(note => {
     res.render('show', {
       note: note,
-      user: req.user
+      userName: req.session.userName
     });
   });
 });
@@ -25,7 +24,7 @@ router.get('/:id/edit', (req, res, next) => {
   Note.findByPk(id).then(note => {
     res.render('edit', {
       note: note,
-      user: req.user
+      userName: req.session.userName
     });
   });
 });
@@ -37,7 +36,7 @@ router.post('/create', (req, res, next) => {
   Note.create({
     title: title,
     content: content,
-    createdBy: req.user
+    createdBy: req.session.userName
   });
   return res.redirect('/');
 });
@@ -51,7 +50,7 @@ router.post('/:id', (req, res, next) => {
     note.update({
       title: title,
       content: content,
-      createdBy: req.user
+      createdBy: req.session.userName
     });
   });
   return res.redirect(`/notes/${id}`);
@@ -61,7 +60,7 @@ router.post('/:id', (req, res, next) => {
 router.post('/delete/:id([0-9]+)', (req, res, next) => {
   const id = req.params.id;
   Note.findByPk(id).then(note => {
-    if(req.user === note.createdBy) {
+    if(req.session.userName === note.createdBy) {
       note.destroy().then(() => {
         res.redirect('/');
       });

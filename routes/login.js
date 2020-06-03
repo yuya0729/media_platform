@@ -4,9 +4,13 @@ const Note = require('../models/note');
 const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
-  res.render('login', {
-    data: ''
-  });
+  if(req.session.userName) {
+    res.redirect('/');
+  } else {
+    res.render('login', {
+      data: ''
+    });
+  }
 });
 
 router.post('/', (req, res, next) => {
@@ -19,6 +23,7 @@ router.post('/', (req, res, next) => {
     }
   }).then(data => {
     if(data != 0) {
+      req.session.userName = userName;
       return res.redirect('/');
     } else {
       return res.render('login', {

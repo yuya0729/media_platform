@@ -26,6 +26,7 @@ router.post('/', (req, res, next) => {
         userName: userName,
         password: password
       });
+      req.session.userName = userName;
       return res.redirect('/');
     }
   });

@@ -3,11 +3,11 @@ const router = express.Router();
 const Note = require('../models/note');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   Note.findAll({order:[['id', 'DESC']]}).then(notes => {
     res.render('index', {
       notes: notes,
-      user: req.user
+      userName: req.session.userName
     });
   });
 });
