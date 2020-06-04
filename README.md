@@ -37,3 +37,6 @@ note, qiita系のやつ
 ・ユーザは自分のブログを投稿できる。
 ・ユーザは自分のブログ投稿を全て閲覧できる。
 ・自分のブログ投稿は削除できる。
+
+## 現状
+<img src="./media_platform.png" alt="media_platform" title="media_platform">
