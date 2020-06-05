@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Note = require('../models/note');
 const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
@@ -8,7 +7,7 @@ router.get('/', (req, res, next) => {
     res.redirect('/');
   } else {
     res.render('login', {
-      data: ''
+      msg: ''
     });
   }
 });
@@ -27,7 +26,7 @@ router.post('/', (req, res, next) => {
       return res.redirect('/');
     } else {
       return res.render('login', {
-        data: '間違ってるよ'
+        msg: '間違ってるよ'
       });
     }
   });

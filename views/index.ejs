@@ -15,7 +15,7 @@
   <div>
     <button type="button" class="btn btn-info" onclick="location.href='/notes/<%= note.id %>'">More</button>
     <% if(userName === note.createdBy) { %>
-      <button type="button" class="btn btn-success" onclick="location.href='/notes/<%= note.id %>/edit'">Edit</button>
+      <button type="button" class="btn btn-success" onclick="location.href='/notes/edit/<%= note.id %>'">Edit</button>
       <form method="POST" class="d-inline" action="/notes/delete/<%= note.id %>">
         <input type="hidden" name="id" value="<%= note.id %>">
         <button type="submit" class="btn btn-danger">Delete</button>

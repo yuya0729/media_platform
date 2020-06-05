@@ -19,7 +19,7 @@ router.get('/:id([0-9]+)', (req, res, next) => {
 });
 
 // get edit page
-router.get('/:id/edit', (req, res, next) => {
+router.get('/edit/:id', (req, res, next) => {
   const id = req.params.id;
   Note.findByPk(id).then(note => {
     res.render('edit', {
@@ -42,7 +42,7 @@ router.post('/create', (req, res, next) => {
 });
 
 // edit note
-router.post('/:id', (req, res, next) => {
+router.post('/:id([0-9]+)', (req, res, next) => {
   const id = req.params.id;
   const title = req.body.title;
   const content = req.body.content;

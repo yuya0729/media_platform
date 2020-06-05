@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Note = require('../models/note');
 const User = require('../models/user');
 
 router.get('/', (req, res, next) => {
   res.render('register', {
-    data: ''
+    msg: ''
   });
 });
 
@@ -19,7 +18,7 @@ router.post('/', (req, res, next) => {
   }).then(data => {
     if(data != 0) {
       return res.render('register', {
-        data: userName
+        msg: userName
       });
     } else {
       User.create({
